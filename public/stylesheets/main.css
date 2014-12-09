@@ -1,0 +1,42 @@
+body {
+	margin: 0 auto;
+	font-family: 'Rokkitt', serif;
+	font-size: 1em;
+}
+
+h1 {
+	font-family: 'Elsie Swash Caps', cursive;
+	font-size: 11em;
+}
+
+h2 {
+	font-size: 5em;
+	margin: 0 auto;
+}
+
+nav {
+	display: inline;
+	padding-left: 300px;
+	font-family: 'Rokkitt', serif;
+	font-size: 2em;
+}
+
+nav a {
+	margin-left: 40px;
+	margin-right: 40px;
+	color: purple;
+}
+
+.delete {
+	margin-top: 30px;
+}
+
+.submit {
+	vertical-align: bottom;
+}
+
+form {
+	margin-top: 80px;
+	padding-left: 650px;
+}
+
