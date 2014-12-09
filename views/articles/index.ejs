@@ -1,0 +1,16 @@
+<!--views/articles/index.ejs-->
+<!DOCTYPE HTML>
+<html>
+<body>
+<h1>Articles index</h1>
+<% articlesList.forEach(function(article) { %>
+<div>
+  <a href="/articles/<%= article.id %>"><%= article.title %></a>
+  <div>
+    <%= article.content %>
+  </div>
+</div>
+<% }) %>
+</body>
+</html>
+
