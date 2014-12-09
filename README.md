@@ -8,7 +8,11 @@
 
 Weclome to the daily planet, we need your superhuman developer skills to help us share news with the world. We've seen that you have some express knowledge and need you to make us a mock website as soon as possible.
 
+<<<<<<< HEAD
 You'll need to use an array of `articles` to create and display articles.
+=======
+You'll need to use an `sequelize` to create and display articles.
+>>>>>>> 74e169765dad9f7090f83b46a0cf910edeb6bdba
 
 ## Routes
 
