@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="/stylesheets/main.css" rel="stylesheet">
+</head>
+<body>
+	
+<form method="post" action="/articles">
+	<form method="post" action="/articles/<%= article.id %>?_method=PUT">
+	<input type="text" name="article[title]" placeholder="enter title" value="<%=article.title %>">class="submit">
+	<input type="text" name="article[author]" placeholder="enter author" value="<%=article.author %>"class="submit">
+	<textarea name="article[content]" placeholder="enter article" value="<%=article.content %>"class="submit"></textarea>
+	<button> Save </button>
+</form>
+
+</body>
+</html>

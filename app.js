@@ -1,8 +1,38 @@
+/* 
+
+PROJECT SETUP STRUCTURE
+
+* install all dependencies
+* create db
+* sequelize init
+* update config file
+* create models using sequelize
+      syntax - sequelize model:create --name article --attributes "title:string, author: string, content: text"
+* node: var db = require("./models");
+* instance creation syntax: db.article.create({title: "article", author: "author", content: "content"})
+* migrating - ' sequelize migration: create --name "______" '
+      when done run "sequelize db:migrate" to merge
+
+
+db.book.create({title: ______, authorId: ____}).then( function (book) {
+  console.log(book) 
+
+- hashing a way to obscure data in a algorithm and consitent way
+
+- serialize: turn into string
+
+- deserialize: the opposite - taking a sring and turning it into an object
+
+})
+*/
+
+
+
 var express = require("express"),
   bodyParser = require("body-parser"),
   methodOverride = require("method-override"),
   app = express();
-var db = require('./models')
+var db = require('./models') 
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,7 +45,7 @@ app.get("/articles", function (req, res) {
   console.log("GET /articles");
     db.article.findAll()
     .then(function (articles) {
-      res.render('articles/index', {articlesList: articles});
+      res.render('articles/index', {articleList: articles});
     });
 });
 
@@ -26,9 +56,33 @@ app.get("/articles/new", function (req, res) {
 app.get("/articles/:id", function (req, res) {
     db.article.find(req.params.id)
     .then(function (articles) {
-      res.render("articles/show", {article: articles});
+      res.render("articles/show", {articleList: articles});
     })
   });
+
+//get article by id
+app.get("/articles/:id/edit", function (req, res) {
+  db.article.find(req.params.id)
+  .then(function (article) {
+    res.render("articles/edit", {articleList: article});
+  })
+})
+
+//part 2
+app.put("/articles/:id", function (req, res) {
+  db.find(req.params.id)
+  .then(function (article) {
+    console.log(article);
+    article.updateAttributes({
+      title: req.body.article.title,
+      content: req.body.article.content,
+      author: req.body.article.author
+    })
+    then(function (article) {
+      res.redirect("/article" + article)
+    })
+  })
+})
 
 app.post("/articles", function (req, res) {
   var newArticle = req.body.article;
