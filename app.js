@@ -2,23 +2,17 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
     // pg = require("pg"),
-    db = require('./models'),
+    db = require('./models'), //Refactor connection and query code
     app = express();
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
-// var config = {
-//   database: "articles_app",
-//   port: 5432,
-//   host:"localhost"
-// };
-
 app.get("/articles", function (req, res) {
   console.log("GET /articles");
+  //Displays a list of articles in the db
   db.articles.findAll()
     .then(function (articles) {
       res.render('articles/index', {articlesList: articles});
@@ -34,20 +28,6 @@ app.get("/articles/:id", function (req, res) {
     .then(function (articles) {
       res.render("articles/show", {articles: articles});
     });
-  // pg.connect(config, function(err, client, done){
-  //       if (err) {
-  //           console.error("OOOPS!!! SOMETHING WENT WRONG!", err);
-  //       }
-  //       client.query("SELECT * FROM articles WHERE id=$1", [req.params.id], function (err, result) {
-  //           done(); 
-  //           console.log(result.rows); 
-  //           if (result.rows.length) {
-  //             res.render("articles/show", {article: result.rows[0]});
-  //           } else {
-  //             res.status(404).send("Article Not Found");
-  //           }
-  //         });
-  //       });
   });
 
 app.post("/articles", function (req, res) {
@@ -61,19 +41,6 @@ app.post("/articles", function (req, res) {
       .then(function (articles) {
         res.redirect("/articles");
       });
-    // pg.connect(config, function(err, client, done){
-    //     if (err) {
-    //          console.error("OOOPS!!! SOMETHING WENT WRONG!", err);
-    //     }
-    //     client.query("INSERT INTO articles (title, author, content) VALUES ($1, $2, $3) RETURNING *", [newArticle.title, newArticle.author, newArticle.content], function (err, result) {
-    //         done(); 
-    //         console.log(result.rows);  
-    //         var article = result.rows[0];   
-    //         res.redirect("/articles/" + article.id);   
-    //     });
-
-    //   });
-  
 });
 
 app.delete("/articles/:id", function (req, res) {
@@ -83,17 +50,20 @@ app.delete("/articles/:id", function (req, res) {
     .then(function(){});
     res.redirect("/articles");
   });
-  // pg.connect(config, function(err, client, done) {
-  //   if (err) {
-  //     console.error("OOOPS!!! SOMETHING WENT WRONG!", err);
-  //   }
-  //   client.query("DELETE FROM articles WHERE id=$1", [req.params.id], function (err, result) {
-  //     res.redirect("/articles");
-  //     done();
-  //     console.log(result.rows);
-  //   });
-  // });
 });
+
+//get article by id (to update) - just the form
+app.get("/articles/:id/edit", function (req, res) {
+  db.article.find(req.params.id)
+  .then(function (article) {
+    res.render("articles/edit", {article: article});
+  })
+});
+
+//update part 2
+app.put("/articles/:id", function (req, res) {
+
+})
 
 app.get("/", function (req, res) {
   res.render("site/index");

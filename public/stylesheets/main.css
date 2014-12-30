@@ -4,9 +4,16 @@ body {
 	font-size: 1em;
 }
 
+.container {
+	padding-left: 10em;
+	padding-top: 5em;
+}
+
 h1 {
 	font-family: 'Elsie Swash Caps', cursive;
 	font-size: 11em;
+	padding-left: 0.5em;
+	text-align: center;
 }
 
 h2 {
